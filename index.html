@@ -227,9 +227,9 @@ input,textarea,select{font-size:16px !important;} /* prevent iOS zoom on focus *
 .ring-label span{font-size:10px; color:var(--text-low);}
 .stat-list{flex:1; display:flex; flex-direction:column; gap:12px;}
 .stat-row{display:flex; align-items:center; justify-content:space-between;}
-.stat-row .lbl{font-size:12.5px; color:var(--text-mid); display:flex; align-items:center; gap:8px;}
+.stat-row .lbl{font-size:12.5px; color:var(--text-mid); display:flex; align-items:center; gap:8px; white-space:nowrap;}
 .stat-row .lbl svg{width:15px;height:15px;}
-.stat-row b{font-family:'Poppins'; font-size:18px;}
+.stat-row b{font-family:'Poppins'; font-size:18px; white-space:nowrap;}
 
 /* ---------- Timeline ---------- */
 .timeline{display:flex; flex-direction:column; gap:2px; margin-top:14px;}
@@ -494,8 +494,8 @@ textarea.diary-input{width:100%; min-height:120px; background:var(--glass-bg); b
 
 /* ---------- Responsive ---------- */
 html{-webkit-text-size-adjust:100%;}
-body{-webkit-overflow-scrolling:touch; overscroll-behavior-y:contain;}
-.main,.sidebar,.modal,.page,.timeline,#heatmapGrid,#scheduleTimeline,#plannerTimeline,.cal-grid{-webkit-overflow-scrolling:touch;}
+body{-webkit-overflow-scrolling:touch; overscroll-behavior-y:none;}
+.main,.sidebar,.modal,.page,.timeline,#scheduleTimeline,#plannerTimeline,.cal-grid,.table-wrap{-webkit-overflow-scrolling:touch;}
 @media (max-width: 1100px){
   .g-3{grid-column:span 6;} .g-4{grid-column:span 6;} .g-5{grid-column:span 12;} .g-6{grid-column:span 12;}
   .g-7{grid-column:span 12;} .g-8{grid-column:span 12;} .g-9{grid-column:span 12;}
@@ -503,98 +503,122 @@ body{-webkit-overflow-scrolling:touch; overscroll-behavior-y:contain;}
   .analytics-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media (max-width: 860px){
-  .sidebar{position:fixed; left:0; top:0; height:100dvh; margin:0; border-radius:0; z-index:200; transform:translateX(-100%); transition:transform .35s var(--ease-out);}
-  .sidebar.mobile-open{transform:translateX(0); box-shadow:0 0 60px rgba(0,0,0,.5);}
+  .sidebar{position:fixed; left:0; top:0; height:100dvh; margin:0; border-radius:0; z-index:200; transform:translateX(-100%); transition:transform .25s ease;}
+  .sidebar.mobile-open{transform:translateX(0);}
   .sidebar.collapsed{width:264px; padding:20px 14px;}
   .sidebar.collapsed .sb-item span, .sidebar.collapsed .sb-brand span{opacity:1; max-width:200px;}
-  .main{padding:14px 12px 80px;}
+  .main{padding:12px 10px 76px;}
   .mobile-menu-btn{display:flex !important;}
-  .mobile-menu-btn:active{transform:scale(.9);}
   .routine-group h4{font-size:12px;}
-  .progress-stats{flex-direction:column; align-items:flex-start;}
-  .ring-wrap{align-self:center;}
+  .progress-stats{flex-direction:row; flex-wrap:wrap; gap:12px;}
+  .ring-wrap{width:72px; height:72px;}
+  .ring-label b{font-size:16px;}
+  .stat-list{gap:8px; min-width:0;}
+  .stat-row .lbl{font-size:11px; gap:4px;}
+  .stat-row b{font-size:15px;}
   .word-hero{flex-direction:column;}
-  .vt{font-size:12px;}
-  .vt td,.vt th{padding:8px 6px;}
+  .vt{font-size:11px; min-width:420px;}
+  .vt td,.vt th{padding:6px 4px;}
   .table-toolbar{gap:6px;flex-wrap:wrap;}
   .table-toolbar input,.table-toolbar select{width:100%;}
-  .focus-glass-card{padding:28px 20px;border-radius:32px;}
-  .focus-overlay .timer-display{font-size:clamp(48px,15vw,72px);}
-  #heatmapGrid{overflow-x:auto;padding-bottom:6px;}
+  .focus-glass-card{padding:24px 16px;border-radius:24px;}
+  .focus-overlay .timer-display{font-size:clamp(44px,14vw,64px);}
+  #heatmapGrid{overflow-x:auto;padding-bottom:4px;}
+  #heatmapGrid>div{gap:2px;}
+  #heatmapGrid>div>div{width:10px !important;height:10px !important;}
   .timeline{gap:0;}
-  .tl-item{padding:10px 8px;}
+  .tl-item{padding:8px 6px;gap:8px;animation:none;}
+  .tl-item:hover{transform:none;}
+  .tl-time{width:40px;font-size:10px;}
+  .tl-body b{font-size:12px;}
   .row-actions{gap:3px;}
-  .icon-mini{width:32px;height:32px;}
-  .bars-chart{height:100px;gap:6px;}
-  /* Mobile perf: reduce glass blur, hide heavy animations */
-  .glass,.focus-glass-card,.focus-overlay{backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);}
+  .icon-mini{width:30px;height:30px;}
+  .bars-chart{height:80px;gap:4px;}
+  .hdr-actions{gap:4px;}
+  .icon-btn{width:38px;height:38px;}
+  .icon-btn svg{width:16px;height:16px;}
+  .card{padding:16px;animation:none;}
+  .card:hover{transform:none;}
+  .qa-btn{padding:10px 6px;}
+  .qa-btn:hover{transform:none;}
+  .glass,.focus-glass-card,.focus-overlay{backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);}
   .blob,.particles{display:none;}
   #loader .loader-blob{display:none;}
+  .vt thead th{font-size:10px;padding:4px;}
+  .habit-card{padding:12px;}
+  .habit-card:hover{transform:none;}
+  .habit-ring{width:44px;height:44px;}
+  .rem-item{padding:10px;gap:8px;}
+  .rem-item:hover{transform:none;}
+  .diary-entry{padding:12px;}
+  .search-box{max-width:160px;}
+  .section-title h2{font-size:13px;}
+  .level-badge{font-size:10px;padding:3px 8px;}
+  .cal-day{font-size:11px;}
+  .cal-nav button{width:24px;height:24px;}
+  .focus-actions{gap:8px;flex-wrap:wrap;justify-content:center;}
+  .focus-actions .btn{padding:10px 18px;font-size:13px;min-width:80px;}
+  .qa-grid{gap:8px;}
+  .bar-shape{border-radius:4px;}
+  .sb-item{padding:10px 10px;}
+  .sb-item span{font-size:13px;}
+  .header{gap:10px;}
+  .greet h1{font-size:clamp(20px,5vw,26px);}
+  .greet p{font-size:13px;}
+  .icon-btn:hover{transform:none;box-shadow:none;}
 }
 @media (max-width: 640px){
   .g-3,.g-4,.g-5,.g-6,.g-7,.g-8,.g-9{grid-column:span 12;}
   .qa-grid{grid-template-columns:repeat(2,1fr);}
-  .word-big{font-size:24px;}
-  .analytics-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .word-big{font-size:22px;}
+  .analytics-grid{grid-template-columns:1fr 1fr;gap:8px;}
   .search-box{display:none;}
-  .hdr-actions{gap:6px;}
-  .icon-btn{width:40px;height:40px;}
-  .avatar{width:38px;height:38px;}
-  .habit-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
-  .habit-card{padding:12px;}
-  .rings-wrap{width:80px;height:80px;}
-  .focus-actions{gap:8px;flex-wrap:wrap;justify-content:center;}
-  .focus-actions .btn{padding:10px 20px;font-size:13px;min-width:80px;}
-  .qa-btn{padding:12px 6px;}
-  .qa-btn svg{width:18px;height:18px;}
-  .qa-btn span{font-size:10px;}
-  .stat-list{gap:8px;}
-  .stat-row .lbl{font-size:11px;}
-  .stat-row b{font-size:16px;}
-  .cal-grid{gap:4px;}
-  .cal-day{border-radius:8px;font-size:11px;}
-  .header{gap:12px;}
+  .habit-grid{gap:8px;}
+  .habit-card{padding:10px;}
+  .habit-ring{width:40px;height:40px;}
+  .cal-day{font-size:10px;}
+  .header{gap:8px;}
 }
 @media (max-width: 480px){
-  .header{flex-direction:column; align-items:stretch; gap:10px;}
-  .hdr-actions{justify-content:flex-end;}
-  .grid{gap:12px;}
-  .card{padding:16px;}
-  .modal{padding:16px; margin:8px; max-width:100%;}
-  .modal-overlay{padding:12px;}
-  .cal-day{font-size:10px;}
-  .routine-item{padding:6px 6px;}
+  .header{flex-direction:column; align-items:stretch; gap:8px;}
+  .hdr-actions{justify-content:flex-end;margin-top:4px;}
+  .grid{gap:10px;}
+  .card{padding:14px;}
+  .modal{padding:14px; margin:6px;}
+  .cal-day{font-size:10px;border-radius:6px;}
+  .routine-item{padding:5px 4px;}
   .routine-item span{font-size:12px;}
-  .habit-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .habit-grid{grid-template-columns:repeat(2,1fr);gap:6px;}
   .stats-grid{grid-template-columns:1fr 1fr;}
-  .analytics-grid{grid-template-columns:1fr 1fr; gap:10px;}
-  .section-title h2{font-size:13px;}
+  .analytics-grid{grid-template-columns:1fr;gap:8px;}
+  .section-title h2{font-size:12px;}
   .focus-blobs{display:none;}
-  .focus-glass-card{padding:24px 16px;}
-  .focus-overlay .timer-display{font-size:clamp(40px,18vw,60px);}
-  .focus-actions .btn{padding:10px 16px;font-size:12px;}
-  .greet h1{font-size:clamp(20px,6vw,28px);}
-  .greet p{font-size:13px;}
-  .tl-time{width:44px;font-size:10px;}
-  .tl-body b{font-size:12px;}
-  .tl-body span{font-size:10px;}
-  .vt td{font-size:11px;padding:6px 4px;}
-  .vt th{font-size:10px;padding:6px 4px;}
-  .sb-item{padding:10px 10px;}
-  .sb-item span{font-size:13px;}
-  #heatmapGrid > div{gap:2px;}
-  #heatmapGrid > div > div{width:10px !important;height:10px !important;}
+  .focus-glass-card{padding:20px 14px;}
+  .focus-overlay .timer-display{font-size:clamp(36px,16vw,52px);}
+  .focus-actions .btn{padding:8px 14px;font-size:12px;min-width:70px;}
+  .greet h1{font-size:clamp(18px,5vw,24px);}
+  .greet p{font-size:12px;}
+  .progress-stats{flex-direction:column;align-items:stretch;gap:10px;}
+  .ring-wrap{align-self:center;width:64px;height:64px;}
+  .ring-label b{font-size:14px;}
+  .stat-list{gap:6px;}
+  .stat-row .lbl{font-size:11px;}
+  .stat-row b{font-size:14px;}
+  .tl-time{width:36px;font-size:9px;}
+  .tl-body b{font-size:11px;}
+  .vt{min-width:350px;font-size:10px;}
+  .vt td{padding:4px 3px;}
+  .level-badge{font-size:9px;padding:2px 6px;}
 }
 @media (max-width: 380px){
   .habit-grid{grid-template-columns:1fr 1fr;}
   .qa-grid{grid-template-columns:1fr 1fr;}
   .analytics-grid{grid-template-columns:1fr;}
-  .icon-btn{width:36px;height:36px;}
-  .icon-btn svg{width:16px;height:16px;}
+  .icon-btn{width:34px;height:34px;}
   .focus-actions{flex-direction:column;align-items:stretch;}
-  .focus-glass-card{padding:20px 14px;}
-  .cal-day{font-size:9px;}
-  .tl-item{gap:8px;}
+  .focus-glass-card{padding:16px 12px;}
+  .cal-day{font-size:8px;}
+  .progress-stats{gap:6px;}
 }
 /* Optimize offscreen rendering */
 .page:not(.active){content-visibility:auto; contain:layout style paint;}
@@ -602,7 +626,6 @@ body{-webkit-overflow-scrolling:touch; overscroll-behavior-y:contain;}
 .loader-logo{will-change:transform;}
 .blob,.focus-blob{will-change:transform;}
 .sb-nav{scrollbar-width:thin;}
-.sb-nav::-webkit-scrollbar{width:3px;}
 .mobile-menu-btn{display:none; width:42px;height:42px; border-radius:50%; align-items:center; justify-content:center; margin-right:8px;}
 .sb-close-mobile{display:none; position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; align-items:center; justify-content:center; background:rgba(255,255,255,.08); border:1px solid var(--glass-border); color:var(--text-mid); z-index:5;}
 @media(max-width:860px){.sb-close-mobile{display:flex;}}
@@ -785,7 +808,6 @@ button:disabled{opacity:.4; cursor:not-allowed;}
         </div>
         <button class="icon-btn glass" id="themeToggle" aria-label="Toggle theme" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg></button>
         <button class="icon-btn glass" id="notifBtn" aria-label="Notifications"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot" aria-hidden="true"></span></button>
-        <span id="cloudStatus" style="font-size:13px;opacity:.5;transition:opacity .3s;" title="Cloud sync status">⟳</span>
         <div class="avatar" role="img" aria-label="Sihaam's avatar"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg></div>
       </div>
     </header>
@@ -1526,7 +1548,6 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     try { localStorage.setItem(DB_KEY, JSON.stringify(state)); } catch(e){}
     saveToSupabase(state);
     renderAll();
-    if($("#cloudStatus")) $("#cloudStatus").textContent = '☁️';
   });
 
   function save(){
@@ -1615,6 +1636,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
   let lp = 0;
   const loaderFill = dom.loaderFill || $("#loaderFill");
   function animateLoader(ts){
+    if(_isMobile && lp > 30){ lp=100; if(loaderFill) loaderFill.style.width = "100%"; return; }
     lp += 2 + Math.random()*8;
     if(lp>=100){ lp=100; if(loaderFill) loaderFill.style.width = "100%"; return; }
     if(loaderFill) loaderFill.style.width = lp+"%";
@@ -2180,7 +2202,10 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     const today = todayKey();
     if(cached && cached.date === today){ el.innerHTML = `<span style="font-size:13px;color:var(--text-mid);font-style:italic;">"${cached.text}"</span><span style="font-size:11px;color:var(--text-low);margin-top:4px;">— ${cached.author||'Unknown'}</span>`; return; }
     try {
-      const res = await fetch('https://api.quotable.io/random?maxLength=100');
+      const controller = new AbortController();
+      const timeout = setTimeout(()=> controller.abort(), 3000);
+      const res = await fetch('https://api.quotable.io/random?maxLength=100', {signal: controller.signal});
+      clearTimeout(timeout);
       const data = await res.json();
       state._lastQuote = {date:today, text:data.content, author:data.author};
       save();
@@ -2207,8 +2232,9 @@ button:disabled{opacity:.4; cursor:not-allowed;}
   }
   window.playTimerSound = playTimerSound;
 
-  /* 10. Confetti effect */
+  /* 10. Confetti effect (skip on mobile for perf) */
   function celebrateConfetti(){
+    if(_isMobile) return;
     const canvas = document.createElement('canvas');
     canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;pointer-events:none;';
     document.body.appendChild(canvas);
@@ -2466,7 +2492,10 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     let p = allPages.length; while(p--){ allPages[p].classList.toggle("active", allPages[p].id === "page-"+page); }
     if(window.innerWidth<=860) sidebar.classList.remove("mobile-open");
     const target = document.getElementById("page-"+page);
-    if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
+    if(target){
+      if(window.innerWidth <= 860) target.scrollIntoView({block:"start"});
+      else target.scrollIntoView({behavior:"smooth", block:"start"});
+    }
   }
   window.navTo = navTo;
   sbNav.addEventListener("click", (e)=>{
@@ -3230,7 +3259,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     focusRunning = true;
     focusPaused = false;
     focusStartTime = Date.now();
-    focusInt = setInterval(tickFocus, 500);
+    focusInt = setInterval(tickFocus, _isMobile ? 1000 : 500);
   }
   function focusSessionComplete(){
     clearInterval(focusInt); focusRunning = false; focusPaused = false; focusSeconds = 0;
@@ -3247,7 +3276,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
       if(phaseEl) phaseEl.textContent = '☕ Break '+pomodoroCycle+'/'+POMODORO_MAX;
       setFocusStatus('Break time! ☕');
       toast('Break time! ('+POMODORO_BREAK+' min)','coffee');
-      focusInt = setInterval(tickFocus, 500);
+      focusInt = setInterval(tickFocus, _isMobile ? 1000 : 500);
       return;
     }
     if(pomodoroActive && pomodoroIsBreak){
@@ -3259,7 +3288,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
       if(phaseEl) phaseEl.textContent = '🍅 Work '+(pomodoroCycle+1)+'/'+POMODORO_MAX;
       setFocusStatus('Back to work! 💪');
       toast('Work session '+(pomodoroCycle+1)+'/'+POMODORO_MAX,'timer');
-      focusInt = setInterval(tickFocus, 500);
+      focusInt = setInterval(tickFocus, _isMobile ? 1000 : 500);
       return;
     }
     if(phaseEl) phaseEl.style.display = 'none';
@@ -3306,7 +3335,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     if(btn) btn.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-pause"/></svg>Pause';
     const ibtn = dom.focusImmersiveBtn || $("#focusImmersiveBtn");
     if(ibtn) ibtn.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-pause"/></svg>Pause';
-    focusInt = setInterval(tickFocus, 500);
+    focusInt = setInterval(tickFocus, _isMobile ? 1000 : 500);
   }
   function resetFocus(){
     clearInterval(focusInt); focusRunning = false; focusPaused = false; focusInt = null;
