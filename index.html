@@ -218,14 +218,20 @@ input,textarea,select{font-size:16px !important;} /* prevent iOS zoom on focus *
 .g-3{grid-column:span 3;} .g-4{grid-column:span 4;} .g-5{grid-column:span 5;} .g-6{grid-column:span 6;}
 .g-7{grid-column:span 7;} .g-8{grid-column:span 8;} .g-9{grid-column:span 9;} .g-12{grid-column:span 12;}
 .progress-stats{display:flex; gap:18px; align-items:center;}
-.ring-wrap{position:relative; width:96px; height:96px; flex-shrink:0;}
-.ring-wrap svg{transform:rotate(-90deg);}
+.ring-wrap{width:96px; height:96px; flex-shrink:0; position:relative; display:grid; grid-template:1fr / 1fr; place-items:center;}
+.ring-wrap>svg,.ring-label{grid-area:1/1;}
+.ring-wrap>svg{transform:rotate(-90deg); width:100%; height:100%;}
 .ring-bg{fill:none; stroke: rgba(var(--sand-rgb),.12); stroke-width:9;}
 .ring-fg{fill:none; stroke-width:9; stroke-linecap:round; stroke:url(#ringGrad); transition:stroke-dashoffset 1.2s var(--ease-out);}
-.ring-label{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+.ring-label{display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none;}
 .ring-label b{font-size:20px; font-family:'Poppins';}
 .ring-label span{font-size:10px; color:var(--text-low);}
-.stat-list{flex:1; display:flex; flex-direction:column; gap:12px;}
+.stat-list{flex:1; display:flex; flex-direction:column; gap:12px; min-width:0;}
+.level-section{margin-top:6px;}
+.level-badge{background:linear-gradient(135deg, rgba(212,175,55,.15), rgba(212,175,55,.05)); padding:5px 12px; border-radius:10px; text-align:center; font-size:11px; font-weight:600; color:var(--gold); animation:fadeIn .5s var(--ease-out);}
+.bar-track{height:9px; border-radius:20px; background:rgba(var(--sand-rgb),.1); overflow:hidden;}
+.bar-fill{height:100%; border-radius:20px; background:linear-gradient(90deg,var(--teal),var(--gold)); transition:width 1.1s var(--ease-out); position:relative;}
+.bar-fill::after{content:''; position:absolute; inset:0; background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); animation:shimmerbar 2.4s infinite;}
 .stat-row{display:flex; align-items:center; justify-content:space-between;}
 .stat-row .lbl{font-size:12.5px; color:var(--text-mid); display:flex; align-items:center; gap:8px; white-space:nowrap;}
 .stat-row .lbl svg{width:15px;height:15px;}
@@ -507,7 +513,7 @@ body{-webkit-overflow-scrolling:touch; overscroll-behavior-y:none;}
   .sidebar.mobile-open{transform:translateX(0);}
   .sidebar.collapsed{width:264px; padding:20px 14px;}
   .sidebar.collapsed .sb-item span, .sidebar.collapsed .sb-brand span{opacity:1; max-width:200px;}
-  .main{padding:12px 10px 76px;}
+  .main{padding:12px 10px 76px; will-change:transform;}
   .mobile-menu-btn{display:flex !important;}
   .routine-group h4{font-size:12px;}
   .progress-stats{flex-direction:row; flex-wrap:wrap; gap:12px;}
@@ -541,7 +547,7 @@ body{-webkit-overflow-scrolling:touch; overscroll-behavior-y:none;}
   .card:hover{transform:none;}
   .qa-btn{padding:10px 6px;}
   .qa-btn:hover{transform:none;}
-  .glass,.focus-glass-card,.focus-overlay{backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);}
+  .glass,.focus-glass-card,.focus-overlay{backdrop-filter:none; -webkit-backdrop-filter:none;}
   .blob,.particles{display:none;}
   #loader .loader-blob{display:none;}
   .vt thead th{font-size:10px;padding:4px;}
@@ -635,7 +641,10 @@ body{-webkit-overflow-scrolling:touch; overscroll-behavior-y:none;}
 .toggle-slider::after{content:''; position:absolute; top:2px; left:2px; width:20px; height:20px; background:var(--text); border-radius:50%; transition:transform .3s, background .3s;}
 .toggle-wrap input:checked + .toggle-slider{background:var(--gold);}
 .toggle-wrap input:checked + .toggle-slider::after{transform:translateX(20px); background:#1a1a2e;}
-.level-badge{background:linear-gradient(135deg, rgba(212,175,55,.15), rgba(212,175,55,.05)); padding:5px 12px; border-radius:10px; text-align:center; margin-top:8px; animation:fadeIn .5s var(--ease-out);}
+@media(max-width:860px){
+  .page:not(.active){content-visibility:visible; contain:none;}
+  .bar-fill::after{animation:none;}
+}
 .cal-day{cursor:pointer; user-select:none;}
 .cal-day:active{transform:scale(.92);}
 .diary-actions{opacity:0; transition:opacity .2s;}
@@ -817,11 +826,11 @@ button:disabled{opacity:.4; cursor:not-allowed;}
       <div class="grid">
 
         <!-- Daily Progress -->
-        <div class="g-4 glass card" style="animation-delay:.02s">
+        <div class="g-4 glass card">
           <div class="section-title"><h2><i data-lucide="sparkles"></i>Daily Progress</h2></div>
           <div class="progress-stats">
             <div class="ring-wrap">
-              <svg viewBox="0 0 100 100" width="96" height="96">
+              <svg class="ring-svg" viewBox="0 0 100 100">
                 <defs><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#E2A33D"/><stop offset="100%" stop-color="#2A7F8E"/>
                 </linearGradient></defs>
@@ -834,9 +843,11 @@ button:disabled{opacity:.4; cursor:not-allowed;}
               <div class="stat-row"><span class="lbl"><i data-lucide="zap"></i>XP</span><b id="xpCount">0</b></div>
               <div class="stat-row"><span class="lbl"><i data-lucide="flame"></i>Streak</span><b id="streakCount">0</b></div>
               <div class="stat-row"><span class="lbl"><i data-lucide="target"></i>Weekly Goal</span><b id="weeklyGoalPct">0%</b></div>
+              <div class="level-section">
+                <div id="levelBadge" class="level-badge">Lv.0 Beginner</div>
+                <div class="bar-track"><div class="bar-fill" id="levelBar"></div></div>
+              </div>
             </div>
-            <div id="levelBadge" class="level-badge" style="margin-top:10px;font-size:11px;color:var(--gold);text-align:center;font-weight:600;">Lv.0 Beginner</div>
-            <div class="bar-track" style="margin:4px 0 0;height:4px;"><div class="bar-fill" id="levelBar" style="width:0%;height:4px;background:var(--gold)"></div></div>
           </div>
         </div>
 
