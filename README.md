@@ -4,22 +4,29 @@
   <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License">
   <img src="https://img.shields.io/badge/single%20file-✅-2a7f8e?style=flat-square" alt="Single File">
   <br><br>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%231a1a2e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23d4af37' font-family='system-ui,sans-serif' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
-    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23f5e6d0'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23d4af37' font-family='system-ui,sans-serif' font-weight='700'%3ES%3C/text%3E%3C/svg%3E" width="120" height="120">
-  </picture>
+
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%232a7f8e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='%231a1a2e'/%3E%3Crect x='2' y='2' width='96' height='96' rx='22' fill='none' stroke='url(%23g)' stroke-width='3'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 50 50' to='360 50 50' dur='4s' repeatCount='indefinite'/%3E%3C/rect%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23d4af37' font-family='system-ui,sans-serif' font-weight='700'%3E%3Canimate attributeName='opacity' values='0.7;1;0.7' dur='2s' repeatCount='indefinite'/%3ES%3C/text%3E%3C/svg%3E" width="140" height="140" alt="Sihaam Logo">
+
   <br>
+
   <h1 align="center" style="font-size: 3em; margin: 8px 0 4px; letter-spacing: -.02em; background: linear-gradient(135deg, #d4af37 0%, #f5d78e 50%, #d4af37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
     Sihaam's Diary
   </h1>
+
   <p align="center" style="font-size: 1.15em; color: #888; max-width: 520px; margin: 0 auto;">
     A polished, all-in-one <strong>personal learning dashboard</strong> — track vocabulary, habits, routines, moods, focus sessions, and goals — all in a single, self-contained HTML file.
   </p>
+
   <br>
+
   <a href="#-features">Features</a> •
   <a href="#-whats-inside">What's Inside</a> •
   <a href="#-getting-started">Getting Started</a> •
   <a href="#-tech-stack">Tech Stack</a>
+
+  <br><br>
+
+  <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=500&size=18&duration=3000&pause=1000&color=D4AF37&center=true&vCenter=true&width=440&lines=Your+personal+learning+companion;Track+vocabulary+%26+diary+entries;Build+habits+%26+routines+that+stick;Stay+focused+with+Pomodoro+mode;Visualize+your+progress+in+style" alt="Typing SVG">
 </div>
 
 <br>
@@ -30,14 +37,14 @@
 
 **Sihaam's Diary** is a beautiful, zero-dependency learning companion that lives entirely in one HTML file. Open it in a browser and you have an instant personal command center for:
 
-- 📚 Building your **vocabulary** with daily word exposure
-- 📝 Reflecting through **diary entries** with mood tracking
-- 🔥 Building **habits** and **routines** that stick
-- 🎯 Setting **weekly/monthly/yearly goals**
-- ⏱ **Focus timer** with Pomodoro support
-- 📊 Visual **analytics** — study hours, mood trends, activity heatmaps
-- 🔔 Smart **notifications** and reminders
-- 📄 Beautiful **PDF reports** of your learning journey
+- <img src="https://img.shields.io/badge/-Vocabulary-d4af37?style=flat-square" alt=""> Building your **vocabulary** with daily word exposure
+- <img src="https://img.shields.io/badge/-Diary-2a7f8e?style=flat-square" alt=""> Reflecting through **diary entries** with mood tracking
+- <img src="https://img.shields.io/badge/-Habits-c96b6b?style=flat-square" alt=""> Building **habits** and **routines** that stick
+- <img src="https://img.shields.io/badge/-Goals-8e6fce?style=flat-square" alt=""> Setting **weekly/monthly/yearly goals**
+- <img src="https://img.shields.io/badge/-Focus%20Timer-1c4d3d?style=flat-square" alt=""> **Focus timer** with Pomodoro support
+- <img src="https://img.shields.io/badge/-Analytics-e6a84c?style=flat-square" alt=""> Visual **analytics** — study hours, mood trends, activity heatmaps
+- <img src="https://img.shields.io/badge/-Notifications-ff8fab?style=flat-square" alt=""> Smart **notifications** and reminders
+- <img src="https://img.shields.io/badge/-PDF%20Report-d4af37?style=flat-square" alt=""> Beautiful **PDF reports** of your learning journey
 
 No sign-ups. No servers. No databases. Just you and your data, stored safely in your browser.
 
