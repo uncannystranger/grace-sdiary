@@ -16,11 +16,21 @@
   <a href="#-ci-cd">CI/CD</a> •
   <a href="#-google-play">Google Play</a>
   <br><br>
-  <a href="https://github.com/uncannystranger/grace-sdiary/releases/latest">
+  <a href="https://github.com/uncannystranger/grace-sdiary/releases/latest/download/app-release.apk">
     <img src="https://img.shields.io/badge/Download-APK-34A853?style=for-the-badge&logo=android" alt="Download APK">
+  </a>
+  <a href="https://github.com/uncannystranger/grace-sdiary/releases/latest/download/app-release.aab">
+    <img src="https://img.shields.io/badge/Download-AAB-FF6D00?style=for-the-badge&logo=googleplay" alt="Download AAB">
   </a>
   <a href="https://github.com/uncannystranger/grace-sdiary/actions">
     <img src="https://img.shields.io/badge/CI-CD-purple?style=for-the-badge&logo=githubactions" alt="CI/CD">
+  </a>
+  <br>
+  <a href="https://github.com/uncannystranger/grace-sdiary/actions/workflows/android.yml">
+    <img src="https://github.com/uncannystranger/grace-sdiary/actions/workflows/android.yml/badge.svg" alt="Build Status">
+  </a>
+  <a href="https://github.com/uncannystranger/grace-sdiary/releases">
+    <img src="https://img.shields.io/github/v/release/uncannystranger/grace-sdiary?style=flat-square&color=E2A33D" alt="Latest Release">
   </a>
 </div>
 
@@ -197,6 +207,15 @@ cp keystore/keystore.properties.template keystore/keystore.properties
 ```
 
 ## 📲 Installation
+
+### Direct Download
+
+| Artifact | Link |
+|----------|------|
+| **Release APK** | [app-release.apk](https://github.com/uncannystranger/grace-sdiary/releases/latest/download/app-release.apk) |
+| **Release AAB** | [app-release.aab](https://github.com/uncannystranger/grace-sdiary/releases/latest/download/app-release.aab) |
+| **Debug APK** | [app-debug.apk](https://github.com/uncannystranger/grace-sdiary/actions/workflows/android.yml) (click latest run → Artifacts) |
+| **Latest Release** | [Releases page](https://github.com/uncannystranger/grace-sdiary/releases) |
 
 ### From GitHub Releases
 
