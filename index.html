@@ -317,9 +317,10 @@ input,textarea,select{font-size:16px !important;} /* prevent iOS zoom on focus *
 .diff-badge{padding:4px 12px; border-radius:20px; font-size:10.5px; font-weight:700; letter-spacing:.03em;}
 
 /* ---------- Table (Vocabulary) ---------- */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:4px;}
 .table-toolbar{display:flex; gap:10px; align-items:center; margin-bottom:14px; flex-wrap:wrap;}
 .table-toolbar input, .table-toolbar select{padding:9px 14px; border-radius:14px; background:var(--glass-bg); border:1px solid var(--glass-border); font-size:12.5px; outline:none;}
-.vt{width:100%; border-collapse:collapse; font-size:13px;}
+.vt{width:100%; border-collapse:collapse; font-size:13px; min-width:500px;}
 .vt th{text-align:left; padding:10px 12px; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-low); border-bottom:1px solid var(--glass-border); cursor:pointer; user-select:none;}
 .vt th:hover{color:var(--gold);}
 .vt td{padding:12px; border-bottom:1px solid rgba(var(--sand-rgb),.06); vertical-align:middle;}
@@ -492,6 +493,9 @@ textarea.diary-input{width:100%; min-height:120px; background:var(--glass-bg); b
 .page.active{display:block;}
 
 /* ---------- Responsive ---------- */
+html{-webkit-text-size-adjust:100%;}
+body{-webkit-overflow-scrolling:touch; overscroll-behavior-y:contain;}
+.main,.sidebar,.modal,.page,.timeline,#heatmapGrid,#scheduleTimeline,#plannerTimeline,.cal-grid{-webkit-overflow-scrolling:touch;}
 @media (max-width: 1100px){
   .g-3{grid-column:span 6;} .g-4{grid-column:span 6;} .g-5{grid-column:span 12;} .g-6{grid-column:span 12;}
   .g-7{grid-column:span 12;} .g-8{grid-column:span 12;} .g-9{grid-column:span 12;}
@@ -499,48 +503,109 @@ textarea.diary-input{width:100%; min-height:120px; background:var(--glass-bg); b
   .analytics-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media (max-width: 860px){
-  .sidebar{position:fixed; left:0; top:0; height:100vh; margin:0; border-radius:0; z-index:200; transform:translateX(-100%); transition:transform .45s var(--ease-out);}
+  .sidebar{position:fixed; left:0; top:0; height:100dvh; margin:0; border-radius:0; z-index:200; transform:translateX(-100%); transition:transform .35s var(--ease-out);}
   .sidebar.mobile-open{transform:translateX(0); box-shadow:0 0 60px rgba(0,0,0,.5);}
   .sidebar.collapsed{width:264px; padding:20px 14px;}
   .sidebar.collapsed .sb-item span, .sidebar.collapsed .sb-brand span{opacity:1; max-width:200px;}
-  .main{padding:16px 14px 70px;}
+  .main{padding:14px 12px 80px;}
   .mobile-menu-btn{display:flex !important;}
+  .mobile-menu-btn:active{transform:scale(.9);}
   .routine-group h4{font-size:12px;}
   .progress-stats{flex-direction:column; align-items:flex-start;}
   .ring-wrap{align-self:center;}
   .word-hero{flex-direction:column;}
+  .vt{font-size:12px;}
+  .vt td,.vt th{padding:8px 6px;}
+  .table-toolbar{gap:6px;flex-wrap:wrap;}
+  .table-toolbar input,.table-toolbar select{width:100%;}
+  .focus-glass-card{padding:28px 20px;border-radius:32px;}
+  .focus-overlay .timer-display{font-size:clamp(48px,15vw,72px);}
+  #heatmapGrid{overflow-x:auto;padding-bottom:6px;}
+  .timeline{gap:0;}
+  .tl-item{padding:10px 8px;}
+  .row-actions{gap:3px;}
+  .icon-mini{width:32px;height:32px;}
+  .bars-chart{height:100px;gap:6px;}
   /* Mobile perf: reduce glass blur, hide heavy animations */
-  .glass,.focus-glass-card,.focus-overlay{backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);}
+  .glass,.focus-glass-card,.focus-overlay{backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);}
   .blob,.particles{display:none;}
   #loader .loader-blob{display:none;}
 }
 @media (max-width: 640px){
   .g-3,.g-4,.g-5,.g-6,.g-7,.g-8,.g-9{grid-column:span 12;}
   .qa-grid{grid-template-columns:repeat(2,1fr);}
-  .word-big{font-size:26px;}
-  .analytics-grid{grid-template-columns:1fr 1fr;}
+  .word-big{font-size:24px;}
+  .analytics-grid{grid-template-columns:1fr 1fr;gap:10px;}
   .search-box{display:none;}
+  .hdr-actions{gap:6px;}
+  .icon-btn{width:40px;height:40px;}
+  .avatar{width:38px;height:38px;}
+  .habit-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .habit-card{padding:12px;}
+  .rings-wrap{width:80px;height:80px;}
+  .focus-actions{gap:8px;flex-wrap:wrap;justify-content:center;}
+  .focus-actions .btn{padding:10px 20px;font-size:13px;min-width:80px;}
+  .qa-btn{padding:12px 6px;}
+  .qa-btn svg{width:18px;height:18px;}
+  .qa-btn span{font-size:10px;}
+  .stat-list{gap:8px;}
+  .stat-row .lbl{font-size:11px;}
+  .stat-row b{font-size:16px;}
+  .cal-grid{gap:4px;}
+  .cal-day{border-radius:8px;font-size:11px;}
+  .header{gap:12px;}
 }
 @media (max-width: 480px){
-  .header{flex-direction:column; align-items:stretch; gap:12px;}
+  .header{flex-direction:column; align-items:stretch; gap:10px;}
   .hdr-actions{justify-content:flex-end;}
-  .grid{gap:14px;}
-  .card{padding:18px;}
-  .modal{padding:20px; margin:10px;}
-  .cal-day{font-size:11px;}
-  .routine-item{padding:7px 8px;}
-  .habit-grid{grid-template-columns:repeat(2,1fr);}
+  .grid{gap:12px;}
+  .card{padding:16px;}
+  .modal{padding:16px; margin:8px; max-width:100%;}
+  .modal-overlay{padding:12px;}
+  .cal-day{font-size:10px;}
+  .routine-item{padding:6px 6px;}
+  .routine-item span{font-size:12px;}
+  .habit-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
   .stats-grid{grid-template-columns:1fr 1fr;}
-  .analytics-grid{grid-template-columns:1fr 1fr; gap:12px;}
+  .analytics-grid{grid-template-columns:1fr 1fr; gap:10px;}
   .section-title h2{font-size:13px;}
   .focus-blobs{display:none;}
+  .focus-glass-card{padding:24px 16px;}
+  .focus-overlay .timer-display{font-size:clamp(40px,18vw,60px);}
+  .focus-actions .btn{padding:10px 16px;font-size:12px;}
+  .greet h1{font-size:clamp(20px,6vw,28px);}
+  .greet p{font-size:13px;}
+  .tl-time{width:44px;font-size:10px;}
+  .tl-body b{font-size:12px;}
+  .tl-body span{font-size:10px;}
+  .vt td{font-size:11px;padding:6px 4px;}
+  .vt th{font-size:10px;padding:6px 4px;}
+  .sb-item{padding:10px 10px;}
+  .sb-item span{font-size:13px;}
+  #heatmapGrid > div{gap:2px;}
+  #heatmapGrid > div > div{width:10px !important;height:10px !important;}
+}
+@media (max-width: 380px){
+  .habit-grid{grid-template-columns:1fr 1fr;}
+  .qa-grid{grid-template-columns:1fr 1fr;}
+  .analytics-grid{grid-template-columns:1fr;}
+  .icon-btn{width:36px;height:36px;}
+  .icon-btn svg{width:16px;height:16px;}
+  .focus-actions{flex-direction:column;align-items:stretch;}
+  .focus-glass-card{padding:20px 14px;}
+  .cal-day{font-size:9px;}
+  .tl-item{gap:8px;}
 }
 /* Optimize offscreen rendering */
 .page:not(.active){content-visibility:auto; contain:layout style paint;}
 #particles{contain:strict;}
 .loader-logo{will-change:transform;}
 .blob,.focus-blob{will-change:transform;}
+.sb-nav{scrollbar-width:thin;}
+.sb-nav::-webkit-scrollbar{width:3px;}
 .mobile-menu-btn{display:none; width:42px;height:42px; border-radius:50%; align-items:center; justify-content:center; margin-right:8px;}
+.sb-close-mobile{display:none; position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; align-items:center; justify-content:center; background:rgba(255,255,255,.08); border:1px solid var(--glass-border); color:var(--text-mid); z-index:5;}
+@media(max-width:860px){.sb-close-mobile{display:flex;}}
 .toggle-wrap{display:flex; align-items:center; gap:10px; cursor:pointer;}
 .toggle-wrap input{display:none;}
 .toggle-slider{width:44px; height:24px; background:var(--glass-border); border-radius:12px; position:relative; transition:background .3s;}
@@ -660,6 +725,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
 <div class="app">
   <!-- ============================= SIDEBAR ============================= -->
   <aside class="sidebar glass" id="sidebar">
+    <button class="sb-close-mobile" id="sbCloseMobile" aria-label="Close menu"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     <div class="sb-top">
       <div class="sb-brand">
         <div class="sb-logo"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg></div>
@@ -719,6 +785,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
         </div>
         <button class="icon-btn glass" id="themeToggle" aria-label="Toggle theme" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg></button>
         <button class="icon-btn glass" id="notifBtn" aria-label="Notifications"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot" aria-hidden="true"></span></button>
+        <span id="cloudStatus" style="font-size:13px;opacity:.5;transition:opacity .3s;" title="Cloud sync status">⟳</span>
         <div class="avatar" role="img" aria-label="Sihaam's avatar"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg></div>
       </div>
     </header>
@@ -979,7 +1046,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
               <option value="Mastered">Mastered</option>
             </select>
           </div>
-          <div style="overflow-x:auto;">
+          <div class="table-wrap">
           <table class="vt">
             <thead>
               <tr>
@@ -1386,7 +1453,8 @@ button:disabled{opacity:.4; cursor:not-allowed;}
   let state = {};
   let _savePending = false;
   let _saveTimer = null;
-  let _cloudLoaded = false;
+  let _cloudReady = false;
+  let _cloudPromise = null;
 
   function supabaseHeaders(){
     return {
@@ -1417,32 +1485,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     }).catch(()=> null);
   }
 
-  function save(){
-    if(_savePending) return;
-    _savePending = true;
-    if(_saveTimer) cancelAnimationFrame(_saveTimer);
-    _saveTimer = requestAnimationFrame(()=>{
-      _saveTimer = null;
-      const snap = deepClone(state);
-      snap.version = STORAGE_VERSION;
-      try { localStorage.setItem(DB_KEY, JSON.stringify(snap)); } catch(e){}
-      if(_cloudLoaded) saveToSupabase(snap);
-      _savePending = false;
-    });
-  }
-
-  function saveImmediate(){
-    if(_saveTimer){ cancelAnimationFrame(_saveTimer); _saveTimer = null; }
-    const snap = deepClone(state);
-    snap.version = STORAGE_VERSION;
-    try { localStorage.setItem(DB_KEY, JSON.stringify(snap)); } catch(e){}
-    if(_cloudLoaded){
-      saveToSupabase(snap);
-    }
-    _savePending = false;
-  }
-
-  function loadSync(){
+  function loadFromCache(){
     try{
       const raw = localStorage.getItem(DB_KEY);
       if(!raw){
@@ -1465,9 +1508,9 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     }catch(e){ return deepClone(defaultState); }
   }
 
-  state = loadSync();
+  state = loadFromCache();
 
-  loadFromSupabase().then(cloud => {
+  _cloudPromise = loadFromSupabase().then(cloud => {
     if(cloud && cloud.data && typeof cloud.data === 'object'){
       const cloudTime = new Date(cloud.updated_at || 0).getTime();
       const localTime = state._lastSynced ? new Date(state._lastSynced).getTime() : 0;
@@ -1479,33 +1522,36 @@ button:disabled{opacity:.4; cursor:not-allowed;}
       }
     }
     state._lastSynced = new Date().toISOString();
-    _cloudLoaded = true;
-    saveImmediate();
+    _cloudReady = true;
+    try { localStorage.setItem(DB_KEY, JSON.stringify(state)); } catch(e){}
+    saveToSupabase(state);
     renderAll();
-    updateNotifBadge();
+    if($("#cloudStatus")) $("#cloudStatus").textContent = '☁️';
   });
-  function loadSync(){
-    try{
-      const raw = localStorage.getItem(DB_KEY);
-      if(!raw){
-        const oldKey = DB_KEY.replace('_v2','_v1');
-        const oldRaw = localStorage.getItem(oldKey);
-        if(oldRaw){
-          try {
-            const old = JSON.parse(oldRaw);
-            localStorage.removeItem(oldKey);
-            return migrateState(old);
-          } catch(e) {}
-        }
-        return deepClone(defaultState);
-      }
-      const parsed = JSON.parse(raw);
-      if(!parsed.version || parsed.version < STORAGE_VERSION) return migrateState(parsed);
-      const fresh = deepClone(defaultState);
-      deepMerge(fresh, parsed);
-      return fresh;
-    }catch(e){ return deepClone(defaultState); }
+
+  function save(){
+    if(_savePending) return;
+    _savePending = true;
+    if(_saveTimer) cancelAnimationFrame(_saveTimer);
+    _saveTimer = requestAnimationFrame(()=>{
+      _saveTimer = null;
+      _savePending = false;
+      const snap = deepClone(state);
+      snap.version = STORAGE_VERSION;
+      try { localStorage.setItem(DB_KEY, JSON.stringify(snap)); } catch(e){}
+      if(_cloudReady) saveToSupabase(snap);
+    });
   }
+
+  function saveImmediate(){
+    if(_saveTimer){ cancelAnimationFrame(_saveTimer); _saveTimer = null; }
+    _savePending = false;
+    const snap = deepClone(state);
+    snap.version = STORAGE_VERSION;
+    try { localStorage.setItem(DB_KEY, JSON.stringify(snap)); } catch(e){}
+    if(_cloudReady) saveToSupabase(snap);
+  }
+
   function deepMerge(target, source){
     for(const key of Object.keys(source)){
       if(source[key] && typeof source[key]==='object' && !Array.isArray(source[key])){
@@ -1576,10 +1622,12 @@ button:disabled{opacity:.4; cursor:not-allowed;}
   }
   requestAnimationFrame(animateLoader);
   window.addEventListener("load", ()=>{
+    const delay = _isMobile ? 300 : 1000;
     setTimeout(()=>{
-      $("#loader").classList.add("hide");
+      const loader = $("#loader");
+      if(loader) loader.classList.add("hide");
       if(_isMobile) document.body.style.overflowY = 'auto';
-    }, _isMobile ? 600 : 1400);
+    }, delay);
   });
 
   /* ---------------- PARTICLES (fewer on mobile) ---------------- */
@@ -2394,9 +2442,17 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     }
   }, {passive:true});
   if(mobileBtn) mobileBtn.addEventListener("click", ()=> sidebar.classList.add("mobile-open"), {passive:true});
+  const sbCloseMobile = $("#sbCloseMobile");
+  if(sbCloseMobile) sbCloseMobile.addEventListener("click", ()=> sidebar.classList.remove("mobile-open"));
   document.addEventListener("click", (e)=>{
     if(window.innerWidth<=860 && sidebar.classList.contains("mobile-open") && !sidebar.contains(e.target) && mobileBtn && !mobileBtn.contains(e.target)){
       sidebar.classList.remove("mobile-open");
+    }
+  }, {passive:true});
+  document.addEventListener("touchend", (e)=>{
+    if(window.innerWidth<=860 && sidebar.classList.contains("mobile-open")){
+      const t = e.changedTouches[0];
+      if(t.screenX > 280) sidebar.classList.remove("mobile-open");
     }
   }, {passive:true});
 
@@ -2409,7 +2465,8 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     }
     let p = allPages.length; while(p--){ allPages[p].classList.toggle("active", allPages[p].id === "page-"+page); }
     if(window.innerWidth<=860) sidebar.classList.remove("mobile-open");
-    window.scrollTo({top:0, behavior:"smooth"});
+    const target = document.getElementById("page-"+page);
+    if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
   }
   window.navTo = navTo;
   sbNav.addEventListener("click", (e)=>{
