@@ -632,6 +632,7 @@ button:disabled{opacity:.4; cursor:not-allowed;}
 <symbol id="i-grid-3x3" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
 <symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-7 7c0 2 .5 3.5 2 5v4h10v-4c1.5-1.5 2-3 2-5a7 7 0 0 0-7-7z"/><path d="M9 14a3 3 0 0 0 6 0"/><line x1="9" y1="10" x2="9.01" y2="10"/><line x1="15" y1="10" x2="15.01" y2="10"/></symbol>
 <symbol id="i-smartphone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2.5"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></symbol>
 <symbol id="i-maximize-2" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></symbol>
 <symbol id="i-move" viewBox="0 0 24 24"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></symbol>
 </defs>
@@ -1171,6 +1172,12 @@ button:disabled{opacity:.4; cursor:not-allowed;}
             <svg class="ic" aria-hidden="true"><use href="#i-upload"/></svg>Import Data
             <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
           </label>
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--glass-border);">
+            <div class="section-title"><h2><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg>Cloud Sync</h2></div>
+            <p style="font-size:12px;color:var(--text-mid);margin-bottom:10px;">Data is auto-synced to Supabase cloud storage.</p>
+            <button class="btn btn-ghost btn-sm" onclick="syncNow()"><svg class="ic" aria-hidden="true"><use href="#i-refresh-cw"/></svg>Sync now</button>
+            <span id="syncStatus" style="font-size:11px;color:var(--text-low);margin-left:10px;"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -1336,6 +1343,12 @@ button:disabled{opacity:.4; cursor:not-allowed;}
   }
   safeIcons();
 
+  /* ---------------- SUPABASE CONFIG ---------------- */
+  const SUPABASE_URL = "https://wwbtncnaqdjuxqlrjxnq.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_KULDmHnf50E7XpyvqzVs9A_crfQu6lD";
+  const SUPABASE_TABLE = "dashboard_state";
+  const SUPABASE_ROW_ID = "si-single-row";
+
   /* ---------------- STATE / PERSISTENCE ---------------- */
   const DB_KEY = "sihaam_dashboard_v2";
   const STORAGE_VERSION = 2;
@@ -1369,7 +1382,23 @@ button:disabled{opacity:.4; cursor:not-allowed;}
     _notifyAsked: false,
     _notifications: []
   };
-  let state = load();
+  let state = loadSync();
+  let _supabaseLoaded = false;
+  const localRaw = (()=>{ try{ return localStorage.getItem(DB_KEY); }catch(e){} })();
+  if(!localRaw){
+    loadFromSupabase().then(cloudData => {
+      if(cloudData && typeof cloudData === 'object'){
+        Object.assign(state, deepClone(defaultState));
+        deepMerge(state, cloudData);
+        state.version = STORAGE_VERSION;
+        _supabaseLoaded = true;
+        saveImmediate();
+        renderAll();
+      }
+    });
+  } else {
+    _supabaseLoaded = true;
+  }
   let saveTimer;
   let _dirty = false;
   function save(){
@@ -1379,23 +1408,76 @@ button:disabled{opacity:.4; cursor:not-allowed;}
       flushSave();
     });
   }
+  let _syncTimeout = null;
+  function syncToSupabase(data){
+    if(_syncTimeout) clearTimeout(_syncTimeout);
+    _syncTimeout = setTimeout(()=>{
+      _syncTimeout = null;
+      try {
+        const payload = JSON.stringify({data: data, updated_at: new Date().toISOString()});
+        fetch(SUPABASE_URL+'/rest/v1/'+SUPABASE_TABLE+'?id=eq.'+SUPABASE_ROW_ID, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer '+SUPABASE_ANON_KEY,
+            'Prefer': 'return=minimal'
+          },
+          body: payload
+        }).catch(()=>{});
+      } catch(e){}
+    }, 2000);
+  }
+
+  function loadFromSupabase(){
+    return fetch(SUPABASE_URL+'/rest/v1/'+SUPABASE_TABLE+'?id=eq.'+SUPABASE_ROW_ID+'&select=data', {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer '+SUPABASE_ANON_KEY
+      }
+    }).then(r=>{
+      if(!r.ok) return null;
+      return r.json();
+    }).then(rows=>{
+      if(rows && rows.length && rows[0].data) return rows[0].data;
+      return null;
+    }).catch(()=> null);
+  }
+
   function flushSave(){
     if(!_dirty) return;
     _dirty = false;
     saveTimer = null;
     try {
       state.version = STORAGE_VERSION;
-      localStorage.setItem(DB_KEY, JSON.stringify(state));
+      const snap = JSON.stringify(state);
+      localStorage.setItem(DB_KEY, snap);
+      syncToSupabase(state);
     } catch(e) {
       if(e.name === 'QuotaExceededError') toast('Storage full. Clear some data.','alert-circle');
     }
   }
   function saveImmediate(){
     if(saveTimer){ cancelAnimationFrame(saveTimer); saveTimer = null; }
+    if(_syncTimeout) clearTimeout(_syncTimeout);
     _dirty = true;
     flushSave();
+    try {
+      const body = JSON.stringify({id: SUPABASE_ROW_ID, data: state, updated_at: new Date().toISOString()});
+      fetch(SUPABASE_URL+'/rest/v1/'+SUPABASE_TABLE, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer '+SUPABASE_ANON_KEY,
+          'Prefer': 'resolution=merge-duplicates'
+        },
+        body: body,
+        keepalive: true
+      }).catch(()=>{});
+    } catch(e){}
   }
-  function load(){
+  function loadSync(){
     try{
       const raw = localStorage.getItem(DB_KEY);
       if(!raw){
@@ -3391,6 +3473,28 @@ button:disabled{opacity:.4; cursor:not-allowed;}
   window.exitImmersiveFocus = exitImmersiveFocus;
 
   /* ---------------- DATA EXPORT (PDF) ---------------- */
+  /* ---------------- CLOUD SYNC ---------------- */
+  window.syncNow = function(){
+    const el = $("#syncStatus");
+    if(el) el.textContent = 'Syncing...';
+    syncToSupabase(state);
+    loadFromSupabase().then(cloudData => {
+      if(cloudData && typeof cloudData === 'object'){
+        Object.assign(state, deepClone(defaultState));
+        deepMerge(state, cloudData);
+        state.version = STORAGE_VERSION;
+        saveImmediate();
+        renderAll();
+        if(el) el.textContent = 'Synced ✓';
+        setTimeout(()=>{ if(el) el.textContent = ''; }, 3000);
+        toast("Cloud sync complete","check-circle");
+      } else {
+        if(el) el.textContent = 'Push only';
+        setTimeout(()=>{ if(el) el.textContent = ''; }, 2000);
+      }
+    });
+  };
+
   window.exportData = function(){
     const { jsPDF } = window.jspdf;
     if(!jsPDF){ toast("PDF library not loaded yet — try again","alert-circle"); return; }
