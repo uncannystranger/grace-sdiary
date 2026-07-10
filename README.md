@@ -1,375 +1,249 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/status-active-brightgreen?style=flat-square" alt="Status">
-  <img src="https://img.shields.io/badge/version-2.0-gold?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/github/actions/workflow/status/uncannystranger/grace-sdiary/android.yml?branch=main&label=Build&style=flat-square" alt="Build">
+  <img src="https://img.shields.io/github/v/release/uncannystranger/grace-sdiary?style=flat-square&color=E2A33D" alt="Version">
+  <img src="https://img.shields.io/badge/Android-15-34A853?style=flat-square&logo=android" alt="Android 15">
+  <img src="https://img.shields.io/badge/Kotlin-2.1-7F52FF?style=flat-square&logo=kotlin" alt="Kotlin">
   <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License">
-  <img src="https://img.shields.io/badge/single%20file-✅-2a7f8e?style=flat-square" alt="Single File">
   <br><br>
-
-  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%232a7f8e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='%231a1a2e'/%3E%3Crect x='2' y='2' width='96' height='96' rx='22' fill='none' stroke='url(%23g)' stroke-width='3'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 50 50' to='360 50 50' dur='4s' repeatCount='indefinite'/%3E%3C/rect%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23d4af37' font-family='system-ui,sans-serif' font-weight='700'%3E%3Canimate attributeName='opacity' values='0.7;1;0.7' dur='2s' repeatCount='indefinite'/%3ES%3C/text%3E%3C/svg%3E" width="140" height="140" alt="Sihaam Logo">
-
+  <img src="app/src/main/res/drawable/ic_launcher_foreground.xml" width="120" height="120" alt="Grace's Diary Logo" style="border-radius:24px;">
+  <h1>Grace's Diary</h1>
+  <p>A premium offline personal learning dashboard for Android — track vocabulary, habits, routines, moods, focus sessions, and goals.</p>
   <br>
-
-  <h1 align="center" style="font-size: 3em; margin: 8px 0 4px; letter-spacing: -.02em; background: linear-gradient(135deg, #d4af37 0%, #f5d78e 50%, #d4af37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-    Sihaam's Diary
-  </h1>
-
-  <p align="center" style="font-size: 1.15em; color: #888; max-width: 520px; margin: 0 auto;">
-    A polished, all-in-one <strong>personal learning dashboard</strong> — track vocabulary, habits, routines, moods, focus sessions, and goals — all in a single, self-contained HTML file.
-  </p>
-
-  <br>
-
   <a href="#-features">Features</a> •
-  <a href="#-whats-inside">What's Inside</a> •
-  <a href="#-getting-started">Getting Started</a> •
-  <a href="#-tech-stack">Tech Stack</a>
-
+  <a href="#-screenshots">Screenshots</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-building">Building</a> •
+  <a href="#-ci-cd">CI/CD</a> •
+  <a href="#-google-play">Google Play</a>
   <br><br>
-
-  <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=500&size=18&duration=3000&pause=1000&color=D4AF37&center=true&vCenter=true&width=440&lines=Your+personal+learning+companion;Track+vocabulary+%26+diary+entries;Build+habits+%26+routines+that+stick;Stay+focused+with+Pomodoro+mode;Visualize+your+progress+in+style" alt="Typing SVG">
+  <a href="https://github.com/uncannystranger/grace-sdiary/releases/latest">
+    <img src="https://img.shields.io/badge/Download-APK-34A853?style=for-the-badge&logo=android" alt="Download APK">
+  </a>
+  <a href="https://github.com/uncannystranger/grace-sdiary/actions">
+    <img src="https://img.shields.io/badge/CI-CD-purple?style=for-the-badge&logo=githubactions" alt="CI/CD">
+  </a>
 </div>
 
 <br>
 
 ---
 
-## ✨ Concept
+## ✨ Features
 
-**Sihaam's Diary** is a beautiful, zero-dependency learning companion that lives entirely in one HTML file. Open it in a browser and you have an instant personal command center for:
+| Feature | Description |
+|---------|-------------|
+| **📖 Vocabulary** | Build your vocabulary with words, definitions, examples, difficulty levels, and spaced-repetition tracking |
+| **📝 Diary** | Daily diary entries with mood tracking (5 emoji levels), search, and history |
+| **🔥 Habits** | Track daily habits with streaks, frequency settings, and visual progress |
+| **⏱️ Focus Timer** | Pomodoro timer with configurable focus/break durations and session tracking |
+| **📅 Calendar** | Monthly calendar with events, planner integration, and day-specific views |
+| **🎯 Goals** | Weekly, monthly, and yearly goals with progress bars and completion tracking |
+| **🌅 Routine** | Morning, afternoon, evening, night routine builder with enabled/disabled toggles |
+| **⏰ Reminders** | Local notifications with custom types, repeat intervals, and snooze |
+| **📊 Analytics** | Progress dashboard with XP level system, streaks, charts, and stats |
+| **🔍 Search** | Instant offline search across vocabulary, diary, planner, and notes |
+| **🎨 Themes** | Light and dark mode with glassmorphism design, system theme support |
+| **💾 Backup** | Full database backup/restore to JSON, export to CSV and JSON |
 
-- <img src="https://img.shields.io/badge/-Vocabulary-d4af37?style=flat-square" alt=""> Building your **vocabulary** with daily word exposure
-- <img src="https://img.shields.io/badge/-Diary-2a7f8e?style=flat-square" alt=""> Reflecting through **diary entries** with mood tracking
-- <img src="https://img.shields.io/badge/-Habits-c96b6b?style=flat-square" alt=""> Building **habits** and **routines** that stick
-- <img src="https://img.shields.io/badge/-Goals-8e6fce?style=flat-square" alt=""> Setting **weekly/monthly/yearly goals**
-- <img src="https://img.shields.io/badge/-Focus%20Timer-1c4d3d?style=flat-square" alt=""> **Focus timer** with Pomodoro support
-- <img src="https://img.shields.io/badge/-Analytics-e6a84c?style=flat-square" alt=""> Visual **analytics** — study hours, mood trends, activity heatmaps
-- <img src="https://img.shields.io/badge/-Notifications-ff8fab?style=flat-square" alt=""> Smart **notifications** and reminders
-- <img src="https://img.shields.io/badge/-PDF%20Report-d4af37?style=flat-square" alt=""> Beautiful **PDF reports** of your learning journey
+## 💻 Tech Stack
 
-No sign-ups. No servers. No databases. Just you and your data, stored safely in your browser.
+| Layer | Technology |
+|-------|-----------|
+| **Language** | Kotlin 2.1 |
+| **UI** | Jetpack Compose + Material 3 |
+| **Architecture** | MVVM + Repository + Clean Architecture |
+| **Database** | Room (SQLite) |
+| **DI** | Hilt |
+| **Navigation** | Navigation Compose |
+| **Preferences** | DataStore |
+| **Background** | WorkManager |
+| **Notifications** | Local notifications (no server) |
+| **Widgets** | Glance (Home Screen Widget) |
+| **Min SDK** | 26 (Android 8.0) |
+| **Target SDK** | 35 (Android 15) |
 
-<br>
-
----
-
-## 🚀 Features
-
-<details>
-<summary><strong>📖 Vocabulary Builder</strong> — expand your word bank daily</summary>
-<br>
-<ul>
-  <li>Daily word of the day from a curated 30+ word bank</li>
-  <li>Add custom vocabulary with difficulty levels (Easy / Medium / Hard)</li>
-  <li>Track review status (New → Reviewing → Mastered)</li>
-  <li>Search, filter, sort, and paginate your growing collection</li>
-  <li><strong>Bulk import</strong> word:meaning pairs</li>
-  <li><strong>Quiz mode</strong> — test yourself with multiple-choice flashcards</li>
-  <li><strong>Anki export</strong> — download CSV for spaced repetition</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>📝 Diary & Mood Tracking</strong> — reflect on your day</summary>
-<br>
-<ul>
-  <li>Write diary entries with mood emoji selection</li>
-  <li>Edit or delete past entries</li>
-  <li><strong>Mood trend chart</strong> — see your emotional patterns over time</li>
-  <li>Daily recap modal on first visit each day</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>🔥 Habits & Routines</strong> — build consistency</summary>
-<br>
-<ul>
-  <li>Visual habit rings with +10% progress taps</li>
-  <li>Routine builder (Morning / Afternoon / Evening / Night)</li>
-  <li>Rename and delete habits, with undo support</li>
-  <li><strong>Drag-and-drop</strong> reordering</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>🎯 Goal Setting</strong> — weekly, monthly, yearly</summary>
-<br>
-<ul>
-  <li>Set goals with progress bars</li>
-  <li>Advance progress in +20% increments</li>
-  <li>Automatic goal completion celebration</li>
-  <li>Drag-to-reorder goals</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>⏱ Focus Timer</strong> — with Pomodoro mode</summary>
-<br>
-<ul>
-  <li>Customizable countdown timer (1–180 min)</li>
-  <li><strong>Pomodoro mode</strong> — auto-alternates 25 min work / 5 min break (4 cycles)</li>
-  <li>Immersive focus overlay with circular progress ring</li>
-  <li>Pause / resume / reset</li>
-  <li>Triangular-wave chime + haptic vibration on completion</li>
-  <li>Focus minutes logged to analytics</li>
-  <li><strong>Distraction-free blocker</strong> — hides sidebar and header</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>📊 Analytics Dashboard</strong> — see your progress</summary>
-<br>
-<ul>
-  <li>Weekly study hours bar chart</li>
-  <li>Vocabulary, diary, and habit completion stats</li>
-  <li><strong>Mood trend line chart</strong> (SVG)</li>
-  <li><strong>365-day activity heatmap</strong> (GitHub-style)</li>
-  <li><strong>Focus minutes by day</strong> bar chart</li>
-  <li>XP level system with 10 achievement tiers (Beginner → Transcendent)</li>
-  <li><strong>Confetti celebration</strong> on level up</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>📅 Calendar & Schedule</strong> — plan your time</summary>
-<br>
-<ul>
-  <li>Monthly calendar with event markers</li>
-  <li>Add/delete events per date</li>
-  <li>Schedule blocks with date, time, title, type, and color coding</li>
-  <li>Timeline view on dashboard and planner pages</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>🔔 Smart Notifications</strong> — never miss a beat</summary>
-<br>
-<ul>
-  <li><strong>Browser notifications</strong> for reminders (persistent — only asks once)</li>
-  <li>Notification center modal (accessible from bell icon)</li>
-  <li>Notifications fire for: reminders, new words, hobbies, study hours, diary entries, focus sessions, habits, goals</li>
-  <li>Undo-able delete toasts with 5-second action window</li>
-  <li>Undo / redo stack (50 actions deep)</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>🎨 Personalization</strong> — make it yours</summary>
-<br>
-<ul>
-  <li>Dark (Liquid Glass) and Light (Sand) themes</li>
-  <li><strong>Auto theme</strong> — follows system preference</li>
-  <li><strong>5 accent colors</strong> — Gold, Teal, Forest, Purple, Coral</li>
-  <li>Sound and vibration toggles</li>
-  <li>Custom display name</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>📄 Export & Data</strong> — own your data</summary>
-<br>
-<ul>
-  <li><strong>PDF report</strong> — beautiful multi-page export with cover page, stat cards, progress analysis (html2canvas + jsPDF)</li>
-  <li><strong>JSON import/export</strong> — backup and restore</li>
-  <li><strong>Auto-backup</strong> to localStorage every 30 minutes</li>
-  <li><strong>Anki CSV export</strong> for vocabulary</li>
-  <li>Data stored in localStorage (persists across sessions)</li>
-</ul>
-</details>
-
-<details>
-<summary><strong>⚡ Power Features</strong></summary>
-<br>
-<ul>
-  <li><strong>Global search</strong> — searches vocabulary, diary, reminders, and schedule</li>
-  <li><strong>Keyboard shortcuts</strong> — quick navigation (G+D, G+P, G+C, etc.)</li>
-  <li><strong>Mobile swipe gestures</strong> — navigate pages left/right on touch</li>
-  <li><strong>Offline indicator</strong> — shows when connectivity drops</li>
-  <li><strong>PWA ready</strong> — installable as a standalone app</li>
-  <li><strong>Daily inspirational quote</strong> from quotable.io API</li>
-  <li><strong>Quick-note scratchpad</strong> on dashboard (auto-saves)</li>
-  <li><strong>Weekly summary toast</strong> — contextual stats each week</li>
-  <li><strong>Streak auto-calculation</strong> from all activity types</li>
-</ul>
-</details>
-
-<br>
-
----
-
-## 📦 What's Inside
+## 🏗 Architecture
 
 ```
-📁 Sihaam's Diary
-├── 📄 index.html          ← the entire application (~3600 lines)
-│   ├── 🎨 Liquid Glass CSS (inline, lines 12–545)
-│   ├── 📐 Semantic HTML (lines 550–1230)
-│   └── ⚙️ Vanilla JavaScript (lines 1240–3605)
-└── 📄 README.md           ← you're reading it!
+com.grace.sdiary/
+├── data/
+│   ├── local/
+│   │   ├── db/           # Room: 10 entities, 10 DAOs, AppDatabase
+│   │   └── datastore/    # UserPreferences (theme, XP, streak)
+│   ├── repository/       # 9 repositories + ProgressRepository
+│   ├── backup/           # Full JSON backup/restore
+│   ├── export/           # CSV/JSON export
+│   └── model/            # Shared domain models
+├── di/                   # Hilt modules (Database, Repository, App)
+├── ui/
+│   ├── theme/            # Colors, Typography, Shapes, Glassmorphism
+│   ├── components/       # Reusable composables (GlassCard, RingProgress, etc.)
+│   ├── navigation/       # NavGraph (13 routes)
+│   └── screens/          # 13 feature screens + ViewModels
+├── notification/         # NotificationHelper, BootReceiver
+├── worker/               # ReminderCheckWorker, DailyResetWorker
+└── util/                 # Constants, DateUtils
 ```
 
-**Zero dependencies.** One file. Open `index.html` in any browser and go.
-
-> [!NOTE]
-> The PDF export feature loads two CDN scripts (`html2canvas` + `jsPDF`) via `<script defer>`. Everything else is self-contained.
-
-<br>
-
----
-
-## 🛠 Tech Stack
-
-<p align="center">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-  <img src="https://img.shields.io/badge/localStorage-FF9900?style=for-the-badge&logo=googlechrome&logoColor=white" alt="localStorage">
-</p>
-
-| Layer | What it uses |
-|-------|-------------|
-| **UI** | Semantic HTML5 + CSS3 (Flexbox, Grid, custom properties, view transitions, animations) |
-| **Icons** | Self-contained SVG sprite (no icon CDN dependency) |
-| **State** | `localStorage` with versioned schema, deep merge migration, RAF-debounced writes |
-| **Timer** | `setInterval` + `Date.now()` elapsed math (zero drift) |
-| **Audio** | Web Audio API (`OscillatorNode` with triangular wave) |
-| **PDF** | `html2canvas` + `jsPDF` (loaded on demand via CDN) |
-| **Notifications** | Web Notification API + custom in-app toast system |
-| **Persistence** | Undo/redo stack (50 actions) |
-| **No frameworks** | Zero npm, no build step, no bundler |
-
-<br>
-
----
-
-## 🚀 Getting Started
-
-### Option 1: Open directly (simplest)
-
-```bash
-# Clone the repo
-git clone https://github.com/uncannystranger/grace-sdiary.git
-
-# Open the file in your browser
-open grace-sdiary/index.html
-```
-
-### Option 2: Serve locally (optional, for better font loading)
-
-```bash
-# Using Python
-python3 -m http.server 8000
-# Then open http://localhost:8000
-
-# Using Node.js
-npx serve .
-```
-
-### First-time setup
-
-1. The app loads automatically with sample data
-2. Click the bell icon to see your notification center
-3. Navigate pages using the sidebar
-4. Customize theme and accent color in Settings
-5. Start adding vocabulary, habits, diary entries, and goals
-
-> [!TIP]
-> Your data is stored entirely in your browser's localStorage. Nothing is sent to any server. To back up your data, go to **Settings → Import/Export**.
-
-<br>
-
----
-
-## 🌈 Themes
-
-The app ships with two themes, both designed around a warm, glass-morphism aesthetic:
-
-| Theme | Background | Accent | Vibe |
-|-------|-----------|--------|------|
-| **Liquid Glass** (dark) | Deep navy `#0f0f1a` | Gold `#d4af37` | Premium, cozy, focus-oriented |
-| **Sand** (light) | Warm sand `#f5e6d0` | Gold `#d4af37` | Bright, airy, approachable |
-
-Switch between them or enable **auto-theme** to follow your system's `prefers-color-scheme`.
-
-You can also choose from 5 accent colors: Gold, Teal, Forest, Purple, and Coral.
-
-<br>
-
----
-
-## 🧠 XP & Level System
-
-| Level | Title | XP Required |
-|-------|-------|-------------|
-| 0 | Beginner | 0 |
-| 1 | Learner | 50 |
-| 2 | Dedicated | 150 |
-| 3 | Scholar | 300 |
-| 4 | Wise | 500 |
-| 5 | Master | 800 |
-| 6 | Genius | 1200 |
-| 7 | Legend | 1700 |
-| 8 | Mythic | 2300 |
-| 9 | Transcendent | 3000 |
-
-Earn XP by adding vocabulary (+8), writing diary entries (+6), completing habits (+3), logging study hours (+2), advancing goals (+3), completing focus sessions (+15), and adding reminders/hobbies (+2 each).
-
-<br>
-
----
-
-## ⌨️ Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `G` `D` | Go to Dashboard |
-| `G` `P` | Go to Planner |
-| `G` `C` | Go to Calendar |
-| `G` `V` | Go to Vocabulary |
-| `G` `E` | Go to English |
-| `G` `Y` | Go to Diary |
-| `G` `R` | Go to Reminders |
-| `G` `A` | Go to Analytics |
-| `G` `H` | Go to Hobbies |
-| `G` `S` | Go to Settings |
-| `N` `+` | Add new item (context-aware) |
-| `?` | Toggle shortcuts overlay |
-| `F` | Quick-open focus timer |
-
-<br>
-
----
-
-## 📄 PDF Report
-
-The built-in PDF exporter generates a beautiful, multi-page learning report:
-
-```
-Page 1 — Cover: gradient background, paw avatar, "Sihaam" title, date
-Page 2 — Data: 8 stat cards, weekly bars chart, progress analysis, insight summary
-```
-
-Uses `html2canvas` (scale:1) + `jsPDF` (JPEG 85%) — typical output is ~200–400 KB.
-
-<br>
-
----
-
-## 🤝 Contributing
-
-This is a personal project built with love. If you find it useful:
-
-- ⭐ Star the repo
-- 🐛 Report issues on GitHub
-- 💡 Suggest improvements via issues
-
-<br>
-
----
-
-## 📜 License
+## 📱 Screenshots
 
 <div align="center">
-  <strong>MIT</strong> — use it, modify it, share it freely.
-  <br><br>
+  <table>
+    <tr>
+      <td><strong>Dashboard</strong></td>
+      <td><strong>Vocabulary</strong></td>
+      <td><strong>Diary</strong></td>
+    </tr>
+    <tr>
+      <td><em>(screenshots coming soon)</em></td>
+      <td><em>(screenshots coming soon)</em></td>
+      <td><em>(screenshots coming soon)</em></td>
+    </tr>
+  </table>
+</div>
+
+## 🔧 Building
+
+### Prerequisites
+
+- Android Studio Hedgehog (2024.3.1) or newer
+- JDK 17
+- Android SDK 35
+
+### Local Build
+
+```bash
+# Clone the repository
+git clone https://github.com/uncannystranger/grace-sdiary.git
+cd grace-sdiary/android
+
+# Debug build (unsigned)
+./gradlew assembleDebug
+
+# Release build (requires signing)
+# 1. Generate a keystore
+bash keystore/generate.sh
+
+# 2. Build signed release
+./gradlew assembleRelease
+
+# 3. Build Android App Bundle
+./gradlew bundleRelease
+```
+
+### Output Locations
+
+| Artifact | Path |
+|----------|------|
+| Debug APK | `app/build/outputs/apk/debug/app-debug.apk` |
+| Release APK | `app/build/outputs/apk/release/app-release.apk` |
+| Release AAB | `app/build/outputs/bundle/release/app-release.aab` |
+
+## 🤖 CI/CD
+
+This project uses **GitHub Actions** for continuous integration and delivery.
+
+### Workflow: `.github/workflows/android.yml`
+
+**Triggers:**
+- Push to `main`, `develop`, or `release/**` branches
+- Pull requests to `main`
+- Tags matching `v*` (e.g., `v1.0.0`)
+- Manual trigger via `workflow_dispatch`
+
+**What it does:**
+1. Checks out the repository
+2. Sets up JDK 17 with caching
+3. Decodes the keystore from `KEYSTORE_BASE64` secret
+4. Builds: `assembleDebug`, `assembleRelease`, `bundleRelease`
+5. Runs lint checks
+6. Uploads APK and AAB as artifacts (retained 30-90 days)
+7. **On tag push:** creates a GitHub Release with APK + AAB attached
+
+### Artifacts
+
+| Artifact | Description | Retention |
+|----------|-------------|-----------|
+| `app-debug` | Debug APK (unsigned) | 30 days |
+| `app-release-apk` | Signed Release APK | 90 days |
+| `app-release-aab` | Signed Android App Bundle | 90 days |
+| `lint-report` | Lint HTML report | 14 days |
+
+## 🔐 Release Signing
+
+### GitHub Secrets Setup
+
+Add these secrets to your GitHub repository:
+`Settings → Secrets and variables → Actions → New repository secret`
+
+| Secret | Description | How to get |
+|--------|-------------|------------|
+| `KEYSTORE_BASE64` | Base64-encoded keystore file | `base64 -i keystore.jks \| pbcopy` |
+| `KEYSTORE_PASSWORD` | Keystore password | Set during keystore generation |
+| `KEY_ALIAS` | Key alias | Set during keystore generation |
+| `KEY_PASSWORD` | Key password | Set during keystore generation |
+
+### Local Signing
+
+```bash
+# 1. Generate a keystore
+bash keystore/generate.sh
+
+# 2. Copy the template
+cp keystore/keystore.properties.template keystore/keystore.properties
+
+# 3. Edit keystore.properties with your credentials
+# (This file is gitignored — safe to store locally)
+```
+
+## 📲 Installation
+
+### From GitHub Releases
+
+1. Go to the [Releases page](https://github.com/uncannystranger/grace-sdiary/releases)
+2. Download the latest `app-release.apk`
+3. On your Android device, enable **Install from unknown sources**
+4. Open the downloaded APK file
+
+### From GitHub Actions (latest build)
+
+1. Go to the [Actions tab](https://github.com/uncannystranger/grace-sdiary/actions)
+2. Click the latest successful workflow run
+3. Scroll to **Artifacts** section
+4. Download `app-release-apk` or `app-debug`
+
+## 🏪 Google Play Publishing
+
+### Prerequisites
+
+1. A [Google Play Console](https://play.google.com/console/) account ($25 one-time fee)
+2. A signed Android App Bundle (`.aab`)
+
+### Steps
+
+1. Generate a keystore (see [Release Signing](#-release-signing))
+2. Build the release bundle: `./gradlew bundleRelease`
+3. Open [Google Play Console](https://play.google.com/console/)
+4. Create a new app
+5. Upload `app/build/outputs/bundle/release/app-release.aab`
+6. Fill in store listing, content rating, and app pricing
+7. Submit for review
+
+> **Note:** The keystore used for signing must be kept safe for the lifetime of the app. Losing it means you cannot publish updates.
+
+## 📄 License
+
+```
+MIT License — Copyright (c) 2024
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files... (see LICENSE file)
+```
+
+---
+
+<div align="center">
   <sub>Built with ❤️ for Sihaam</sub>
+  <br>
+  <sub>Kotlin • Jetpack Compose • Material 3 • Room • Hilt • WorkManager</sub>
 </div>

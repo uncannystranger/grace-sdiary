@@ -1,0 +1,10 @@
+# This file must point to your Android SDK location.
+# Android Studio creates this automatically when you open the project.
+# Example:
+# sdk.dir=/Users/yourname/Library/Android/sdk
+#
+# If you're building from the command line, create this file with:
+# echo "sdk.dir=$HOME/Library/Android/sdk" > local.properties
+#
+# On Linux:
+# echo "sdk.dir=$HOME/Android/Sdk" > local.properties

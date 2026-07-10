@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="seed">#1a1a2e</color>
+    <color name="gold">#E2A33D</color>
+    <color name="teal">#2A7F8E</color>
+    <color name="forest">#1B4332</color>
+    <color name="sand">#F2E9DC</color>
+    <color name="coral">#ff8fab</color>
+</resources>

@@ -1,0 +1,41 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+local.properties
+
+# Android
+/app/build/
+/app/release/
+*.apk
+*.aab
+*.jks
+*.keystore
+*.ks
+
+# Keystore (NEVER commit keystore files or passwords)
+keystore/keystore.jks
+keystore/keystore.properties
+!keystore/keystore.properties.template
+!keystore/generate.sh
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+*.hprof
+
+# Generated
+/captures
+.externalNativeBuild/

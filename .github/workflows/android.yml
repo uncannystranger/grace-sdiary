@@ -1,0 +1,157 @@
+name: Build Android APK & AAB
+
+on:
+  push:
+    branches: [ "main", "develop", "release/**" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  JAVA_VERSION: "17"
+
+defaults:
+  run:
+    working-directory: android
+
+jobs:
+  build:
+    name: Build and Sign APK / AAB
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: "temurin"
+          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Decode Keystore
+        if: env.KEYSTORE_BASE64 != ''
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        working-directory: android/app
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > keystore.jks
+          echo "Keystore decoded successfully"
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Build Release APK & AAB
+        if: env.KEYSTORE_PASSWORD != ''
+        env:
+          KEYSTORE_PATH: ${{ github.workspace }}/android/app/keystore.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
+        run: ./gradlew assembleRelease bundleRelease --stacktrace
+
+      - name: Run Lint
+        run: ./gradlew lint --stacktrace
+
+      - name: Verify APKs exist
+        run: |
+          echo "=== Debug APK ==="
+          ls -lh app/build/outputs/apk/debug/*.apk 2>/dev/null || echo "No debug APK found"
+          echo "=== Release APK ==="
+          ls -lh app/build/outputs/apk/release/*.apk 2>/dev/null || echo "No release APK found"
+          echo "=== AAB ==="
+          ls -lh app/build/outputs/bundle/release/*.aab 2>/dev/null || echo "No AAB found"
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: android/app/build/outputs/apk/debug/*.apk
+          compression-level: 0
+          retention-days: 30
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: android/app/build/outputs/apk/release/*.apk
+          compression-level: 0
+          retention-days: 90
+
+      - name: Upload Release AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: android/app/build/outputs/bundle/release/*.aab
+          compression-level: 0
+          retention-days: 90
+
+      - name: Upload Lint Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: android/app/build/reports/lint-results-*.html
+          retention-days: 14
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Generate release notes
+        run: |
+          echo "## Grace's Diary ${{ github.ref_name }}" > release-notes.md
+          echo "" >> release-notes.md
+          echo "### Build Information" >> release-notes.md
+          echo "- **Version:** ${{ github.ref_name }}" >> release-notes.md
+          echo "- **Commit:** ${{ github.sha }}" >> release-notes.md
+          echo "- **Build:** ${{ github.run_number }}" >> release-notes.md
+          echo "" >> release-notes.md
+          echo "### Downloads" >> release-notes.md
+          echo "- **Debug APK:** app-debug artifact" >> release-notes.md
+          echo "- **Release APK:** app-release-apk artifact" >> release-notes.md
+          echo "- **Android App Bundle:** app-release-aab artifact" >> release-notes.md
+          echo "" >> release-notes.md
+          echo "### Installation" >> release-notes.md
+          echo "1. Download the APK from the release assets" >> release-notes.md
+          echo "2. Enable 'Install from unknown sources' in Settings" >> release-notes.md
+          echo "3. Open the APK file to install" >> release-notes.md
+          echo "" >> release-notes.md
+          echo "### Google Play" >> release-notes.md
+          echo "The AAB file can be uploaded directly to Google Play Console." >> release-notes.md
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Grace's Diary ${{ github.ref_name }}
+          body_path: release-notes.md
+          files: |
+            artifacts/app-debug/*.apk
+            artifacts/app-release-apk/*.apk
+            artifacts/app-release-aab/*.aab
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
